@@ -1,7 +1,6 @@
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-
 import java.awt.Font;
 import java.awt.Color;
 import java.awt.event.KeyEvent;
@@ -42,38 +41,57 @@ public class Wordle extends JFrame{
         
     }
     KeyListener test = new KeyListener(){
-        public void keyPressed(KeyEvent e){
+        public void keyReleased(KeyEvent e){
             
             String teclaPulsada = KeyEvent.getKeyText(e.getKeyCode());
+            int teclaPulsadaInt = e.getKeyCode();
+            System.out.println(teclaPulsadaInt);
             System.out.println(teclaPulsada);
             if(keysList.contains(teclaPulsada) || teclaPulsada.equals("Desconocido keyCode: 0x0")){
                 if(teclaPulsada.equals("Desconocido keyCode: 0x0")) teclaPulsada = "Ñ";
-                misChar.add(teclaPulsada);
-                wordleCasilla[principal.posicionCol][principal.posicionRow].setText(teclaPulsada);
-                principal.posicionCol++;
-            }
-            if(principal.posicionCol > 4){
-                String str = "";
-                for (String chart : misChar) {
-                    str += chart;
+                if(misChar.size()<5) {
+                        misChar.add(teclaPulsada);
+                        wordleCasilla[principal.posicionCol][principal.posicionRow].setText(teclaPulsada);
+                        principal.posicionCol++;
                 }
-                System.out.println("Palabra: " + str);
-                System.out.println(todasPalabras.contains(str.toString().toLowerCase()));
-                // if(todasPalabras.contains(str.toString().toLowerCase())){
-                    principal.nextLine(str);
-                // }else{
-                //     // Reset line
-                //     misChar.clear();
-                //     JOptionPane.showMessageDialog(null, "La palabra no se encuentra en el diccionario");
-                //     principal.resetLine();
-                // }
+                
             }
+            if(misChar.size()>0 ) {
+                if (teclaPulsadaInt == 8 || teclaPulsada.equals("Retroceso")|| teclaPulsada.equals("Backspace")|| teclaPulsada.equals(KeyEvent.VK_BACK_SPACE)) {
+                    
+                    misChar.remove(misChar.get(misChar.size()-1));
+                    wordleCasilla[principal.posicionCol-1][principal.posicionRow].setText("");
+                    principal.posicionCol--;
+                }
+            }
+                
+               
+                if(teclaPulsadaInt == 10 ||teclaPulsada.equals("Enter")||teclaPulsada.equals("Intro")||teclaPulsada.equals(KeyEvent.VK_ENTER)){
+                    String str = "";
+                    for (String chart : misChar) {
+                        str += chart;
+                    }
+                    System.out.println("Palabra: " + str);
+                    System.out.println(todasPalabras.contains(str.toString().toLowerCase()));
+                    if(todasPalabras.contains(str.toString().toLowerCase())&& str.length()>4){
+                        principal.nextLine(str);
+                    }else if(str.length()<5){
+                         
+                    }else if(!todasPalabras.contains(str.toString().toLowerCase())) {
+                         misChar.clear();
+                         JOptionPane.showMessageDialog(null, "La palabra no se encuentra en el diccionario");
+                         principal.resetLine();
+                    }else if(str.length()>5){
+                        
+                    }
+                }
             if(principal.posicionRow > 5){
                 // principal.word = principal.generateRandom();
                 principal.resetGame();
             }
         }
-        public void keyReleased(KeyEvent e){
+    
+        public void keyPressed(KeyEvent e){
             // teclaPulsada = e.getKeyChar();
         }
         public void keyTyped(KeyEvent e){

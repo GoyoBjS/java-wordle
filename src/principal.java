@@ -62,7 +62,7 @@ public class principal {
                     System.out.println(ary[l]);
                 }
             }
-        }, 1000);
+        }, 500);
         posicionRow = 0;
         posicionCol = 0;
         ayudaCounter = 0;
@@ -113,8 +113,10 @@ public class principal {
                                 else{
                                     if(countOccurrences(answerWord, misChar.get(i)) <= countOccurrences(word1, misChar.get(i))){
                                         wordleCasilla[i][posicionRow].setBackground(new Color(0xE4C000));
+                                        keyCasilla[keyIndex].setBackground(new Color(0xE4C000));
                                     }else{
                                         wordleCasilla[i][posicionRow].setBackground(Color.GRAY);
+                                        keyCasilla[keyIndex].setBackground(new Color(0x333333));
                                     }
                                     System.out.println(countOccurrences(answerWord, misChar.get(i)));
                                         System.out.println(countOccurrences(word1, misChar.get(i)));
@@ -129,6 +131,7 @@ public class principal {
                                 wordleCasilla[i][posicionRow].setBackground(Color.GRAY);
                                 if(!letra.contains(keyCasilla[keyIndex].getText())){
                                     keyCasilla[keyIndex].setBackground(new Color(0x333333));
+                                    
                                 }
                             }
                         }
@@ -141,7 +144,6 @@ public class principal {
                         return true;
                     }
                 }
-                System.out.println(letra);
                 posicionCol = 0;
                 posicionRow++;
                 misChar.clear();
