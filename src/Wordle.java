@@ -12,7 +12,7 @@ import java.util.List;
 public class Wordle extends JFrame{
     gestionFichero gf = new gestionFichero("EJM.txt");
     static ArrayList<String> misChar = principal.misChar;
-    static String[] keys = {"Q", "W", "E", "R", "T", "Y", "U", "I", "O", "P", "A", "S", "D", "F", "G", "H", "J", "K", "L", "Ñ", "Z", "X", "C", "V", "B", "N", "M"};
+    static String[] keys = principal.keys;
     static List<String> keysList =principal.keysList;
     public String teclaPulsada;
     static boolean win = false;
@@ -53,20 +53,20 @@ public class Wordle extends JFrame{
                 principal.posicionCol++;
             }
             if(principal.posicionCol > 4){
-                StringBuilder str = new StringBuilder();
+                String str = "";
                 for (String chart : misChar) {
-                    str.append(chart);
+                    str += chart;
                 }
                 System.out.println("Palabra: " + str);
                 System.out.println(todasPalabras.contains(str.toString().toLowerCase()));
-                if(todasPalabras.contains(str.toString().toLowerCase())){
-                    principal.nextLine();
-                }else{
-                    // Reset line
-                    misChar.clear();
-                    JOptionPane.showMessageDialog(null, "La palabra no se encuentra en el diccionario");
-                    principal.resetLine();
-                }
+                // if(todasPalabras.contains(str.toString().toLowerCase())){
+                    principal.nextLine(str);
+                // }else{
+                //     // Reset line
+                //     misChar.clear();
+                //     JOptionPane.showMessageDialog(null, "La palabra no se encuentra en el diccionario");
+                //     principal.resetLine();
+                // }
             }
             if(principal.posicionRow > 5){
                 // principal.word = principal.generateRandom();
@@ -134,7 +134,7 @@ public class Wordle extends JFrame{
             keyCasilla[i].setOpaque(true);
             principal.frame.add(keyCasilla[i]);
         }
-        for(int i = 20; i < 27; i++) {
+        for(int i = 20; i < 26; i++) {
             keyCasilla[i] = new JLabel();
             keyCasilla[i].setBounds(50*(i-20) + (140+((i-20)*3)), 876, 50, 60);
             keyCasilla[i].setBackground(Color.GRAY);

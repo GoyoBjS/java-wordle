@@ -1,3 +1,6 @@
+import java.util.ArrayList;
+import java.util.Arrays;
+
 
 public class App {
     static Wordle wordle  = new Wordle();

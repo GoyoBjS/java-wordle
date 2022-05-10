@@ -18,7 +18,6 @@ public class principal {
     public static ArrayList<String>letra = new ArrayList<String>();
     public static List<String> keysList = new ArrayList<>(Arrays.asList(keys));
     public static String word = generateRandom();
-    // public static String[] caracteres = word.split("");
     public static String teclaPulsada;
     public static int posicionCol, posicionRow, clicked, ayudaCounter, keyIndex = 0;
     public static boolean win = false;
@@ -67,8 +66,6 @@ public class principal {
         posicionRow = 0;
         posicionCol = 0;
         ayudaCounter = 0;
-    
-        
     }
 
     public static void resetLine(){
@@ -79,16 +76,27 @@ public class principal {
         posicionCol = 0;
     }
 
+    public static int countOccurrences(String str, String letter) {
+        String[] word = str.split("");
+        System.out.println("Dentro concu: " + str);
+        int occurences = 0;
+        for(String lett : word){
+            if(lett.equalsIgnoreCase(letter)){
+                occurences++;
+            }
+        }
+    return occurences;
+    }
+
     // funciona
-    public static boolean nextLine(){
+    public static boolean nextLine(String str){
+        String answerWord = str;
         int accLetrasAcertadas = 0;
         String word1 = word;
         String[] caracteres = word.split("");
+        System.out.println(word1);
                 for(int i = 0; i < 5; i++){
-                   
-                    System.out.println(word1);
                     keyIndex = Collections.binarySearch(keysList, misChar.get(i));
-                     
                         if(keyIndex>=0){
                             if(word1.contains(misChar.get(i))){
                                 if(misChar.get(i).equals(caracteres[i])){
@@ -97,21 +105,33 @@ public class principal {
                                     keyCasilla[keyIndex].setBackground(Color.GREEN);
                                     letra.add(keyCasilla[keyIndex].getText());
                                     accLetrasAcertadas++;
-                                }else{
-                                    wordleCasilla[i][posicionRow].setBackground(new Color(0xE4C000));
+                                    int index = answerWord.indexOf(misChar.get(i));
+                                    if (index != -1) {
+                                        answerWord = answerWord.replaceFirst(misChar.get(i), "");
+                                    }
+                                }
+                                else{
+                                    if(countOccurrences(answerWord, misChar.get(i)) <= countOccurrences(word1, misChar.get(i))){
+                                        wordleCasilla[i][posicionRow].setBackground(new Color(0xE4C000));
+                                    }else{
+                                        wordleCasilla[i][posicionRow].setBackground(Color.GRAY);
+                                    }
+                                    System.out.println(countOccurrences(answerWord, misChar.get(i)));
+                                        System.out.println(countOccurrences(word1, misChar.get(i)));
                                     if(!letra.contains(keyCasilla[keyIndex].getText())){
+                                        System.out.println(keyCasilla[keyIndex].getText());
                                         keyCasilla[keyIndex].setBackground(new Color(0xE4C000));
                                     }
                                 }
                                
                             }else{
+                                
                                 wordleCasilla[i][posicionRow].setBackground(Color.GRAY);
                                 if(!letra.contains(keyCasilla[keyIndex].getText())){
                                     keyCasilla[keyIndex].setBackground(new Color(0x333333));
                                 }
                             }
                         }
-                        
                     if(accLetrasAcertadas == 5){
                         win = true;
                         JOptionPane.showMessageDialog(null, "Ganaste");
@@ -121,6 +141,7 @@ public class principal {
                         return true;
                     }
                 }
+                System.out.println(letra);
                 posicionCol = 0;
                 posicionRow++;
                 misChar.clear();
