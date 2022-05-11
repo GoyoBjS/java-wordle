@@ -30,10 +30,10 @@ public class Wordle extends JFrame{
         principal.frame.addKeyListener(test);
         
         createWordlePanel();
-        name();
-        totalPoints();
+        // name();
+        // totalPoints();
         idioma();
-        currentPoints();
+        // currentPoints();
         keyboard();
         principal.frame.setVisible(true);
         ayuda();
@@ -87,6 +87,7 @@ public class Wordle extends JFrame{
                 }
             if(principal.posicionRow > 5){
                 // principal.word = principal.generateRandom();
+                JOptionPane.showMessageDialog(null, "Vuelve a intentarlo \n La palabra es: " + principal.word);
                 principal.resetGame();
             }
         }
@@ -154,7 +155,7 @@ public class Wordle extends JFrame{
         }
         for(int i = 20; i < 26; i++) {
             keyCasilla[i] = new JLabel();
-            keyCasilla[i].setBounds(50*(i-20) + (140+((i-20)*3)), 876, 50, 60);
+            keyCasilla[i].setBounds(50*(i-20) + (155+((i-20)*3)), 876, 50, 60);
             keyCasilla[i].setBackground(Color.GRAY);
             keyCasilla[i].setText(keys[i]);
             keyCasilla[i].setHorizontalAlignment(JLabel.CENTER);

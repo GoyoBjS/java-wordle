@@ -90,12 +90,13 @@ public class principal {
 
     // funciona
     public static boolean nextLine(String str){
-        String answerWord = str;
+        String answerWord = "";
         int accLetrasAcertadas = 0;
         String word1 = word;
         String[] caracteres = word.split("");
         System.out.println(word1);
                 for(int i = 0; i < 5; i++){
+                    answerWord += str.charAt(i);
                     keyIndex = Collections.binarySearch(keysList, misChar.get(i));
                         if(keyIndex>=0){
                             if(word1.contains(misChar.get(i))){
@@ -116,7 +117,7 @@ public class principal {
                                         keyCasilla[keyIndex].setBackground(new Color(0xE4C000));
                                     }else{
                                         wordleCasilla[i][posicionRow].setBackground(Color.GRAY);
-                                        keyCasilla[keyIndex].setBackground(new Color(0x333333));
+                                        keyCasilla[keyIndex].setBackground(Color.GRAY);
                                     }
                                     System.out.println(countOccurrences(answerWord, misChar.get(i)));
                                         System.out.println(countOccurrences(word1, misChar.get(i)));
@@ -127,7 +128,6 @@ public class principal {
                                 }
                                
                             }else{
-                                
                                 wordleCasilla[i][posicionRow].setBackground(Color.GRAY);
                                 if(!letra.contains(keyCasilla[keyIndex].getText())){
                                     keyCasilla[keyIndex].setBackground(new Color(0x333333));
