@@ -1,4 +1,4 @@
-# with open('EJM.txt', encoding='utf-8') as f:
+# with open('diccionarioCompleto.txt', encoding='utf-8') as f:
 #     matches = ["á","é","í","ó","ú"]
 #     for line in f:
 #         # print(line.strip())
@@ -11,7 +11,7 @@
 
 matches = ["á","é","í","ó","ú"]
 
-with open("EJM.txt", "r+", encoding='utf-8') as f:
+with open("diccionarioCompleto.txt", "r+", encoding='utf-8') as f:
     d = f.readlines()
     # print(d)
     f.seek(0)
@@ -33,6 +33,11 @@ with open("EJM.txt", "r+", encoding='utf-8') as f:
         if "ú" in i:
             for x in "ú":
                 i = i.replace(x, "u")
+        if "ñ" in i:
+            # delete the word if ñ is in it
+            i = "\n"
+
+                
         f.write(i.strip("\n") + "\n")
         # if any(x in i for x in matches):
         #      print(i)
@@ -42,12 +47,12 @@ with open("EJM.txt", "r+", encoding='utf-8') as f:
            
     f.truncate()
 
-# a_file = open("EJM.txt", "r", encoding='utf-8')
+# a_file = open("diccionarioCompleto.txt", "r", encoding='utf-8')
 # lines = a_file.readlines()
 # print(lines)
 # a_file.close()
 
-# new_file = open("EJM.txt", "w", encoding='utf-8')
+# new_file = open("diccionarioCompleto.txt", "w", encoding='utf-8')
 # for line in lines:
 #     if any(x not in line for x in matches):
 #         print(line)

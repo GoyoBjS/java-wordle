@@ -16,8 +16,6 @@ public class Ayuda extends JLabel{
 
                 @Override
                 public void mouseClicked(java.awt.event.MouseEvent e) {
-                    System.out.println(principal.ayudaCounter);
-                   
                     if(principal.ayudaCounter < 1){
                         e.getComponent().setBackground(Color.GREEN);
                         principal.ayudaCounter = 1;

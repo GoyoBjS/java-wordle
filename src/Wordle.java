@@ -9,17 +9,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Wordle extends JFrame{
-    gestionFichero gf = new gestionFichero("EJM.txt");
     static ArrayList<String> misChar = principal.misChar;
     static String[] keys = principal.keys;
     static List<String> keysList =principal.keysList;
-    public String teclaPulsada;
-    static boolean win = false;
     static JLabel[][] wordleCasilla = principal.wordleCasilla;
     static JLabel[] label = principal.label;
     static JLabel[] keyCasilla = principal.keyCasilla;
-    static Ayuda ayuda = new Ayuda();
+    gestionFichero gf = new gestionFichero("diccionarioCompleto.txt");
+    Ayuda ayuda = new Ayuda();
+    String teclaPulsada;
     ArrayList<String> todasPalabras = gf.leer();
+    boolean win = false;
     Wordle(){
         
         principal.frame.setTitle("Wardle");
@@ -45,8 +45,6 @@ public class Wordle extends JFrame{
             
             String teclaPulsada = KeyEvent.getKeyText(e.getKeyCode());
             int teclaPulsadaInt = e.getKeyCode();
-            System.out.println(teclaPulsadaInt);
-            System.out.println(teclaPulsada);
             if(keysList.contains(teclaPulsada) || teclaPulsada.equals("Desconocido keyCode: 0x0")){
                 if(teclaPulsada.equals("Desconocido keyCode: 0x0")) teclaPulsada = "Ñ";
                 if(misChar.size()<5) {
@@ -64,15 +62,12 @@ public class Wordle extends JFrame{
                     principal.posicionCol--;
                 }
             }
-                
-               
                 if(teclaPulsadaInt == 10 ||teclaPulsada.equals("Enter")||teclaPulsada.equals("Intro")||teclaPulsada.equals(KeyEvent.VK_ENTER)){
                     String str = "";
                     for (String chart : misChar) {
                         str += chart;
                     }
                     System.out.println("Palabra: " + str);
-                    System.out.println(todasPalabras.contains(str.toString().toLowerCase()));
                     if(todasPalabras.contains(str.toString().toLowerCase())&& str.length()>4){
                         principal.nextLine(str);
                     }else if(str.length()<5){
@@ -122,7 +117,6 @@ public class Wordle extends JFrame{
         
         
         for(int i = 0; i< 5; i++){
-            System.out.println("Dentro de Ayuda: " + caracteres[i]);
             label[i] = new Ayuda();
             label[i].setText(caracteres[i]);
             label[i].setBounds(70*i + (130+(i*5)), 157, 70, 70);

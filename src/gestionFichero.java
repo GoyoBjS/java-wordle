@@ -20,7 +20,6 @@ public class gestionFichero {
 		// FileReader fr;
 		BufferedReader br;
 		try {
-			// fr=new FileReader(nombre_fichero);
 			br= new BufferedReader(new InputStreamReader(new FileInputStream(nombre_fichero), StandardCharsets.UTF_8));
 			while (linea!=null) {
 				linea=br.readLine();
@@ -46,7 +45,6 @@ public class gestionFichero {
 		Random num= new Random();
 		int numero_palabra=num.nextInt(tamanio);//tamanio=tama�o de la arraylist num. limt de random
 		String palabra=deleer.get(numero_palabra);//generamos la palabra de esa posicion.
-		System.out.println(palabra);
 		return palabra;
 		
 	}
